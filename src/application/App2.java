@@ -1,13 +1,14 @@
 package application;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
+import java.util.Scanner;
 
 public class App2 {
 
 	public static void main(String[] args) {
-		 double numeroDecimal = 0.625; // Substitua pelo número decimal que deseja converter
+		  Scanner scanner = new Scanner(System.in);
+
+	        System.out.print("Digite um número decimal fracionário: ");
+	        double numeroDecimal = scanner.nextDouble();
 
 	        // Parte inteira (conversão usando divisão sucessiva)
 	        int parteInteira = (int) numeroDecimal;
@@ -23,7 +24,11 @@ public class App2 {
 	        binario.append(","); // Adiciona o ponto decimal
 	        double parteFracionaria = numeroDecimal - (int) numeroDecimal;
 
-	        for (int i = 0; i < 32; i++) { // Defina um limite para evitar representações infinitas
+	        while (parteFracionaria > 0) {
+	            if (binario.length() > 32) {
+	                break; // Limite de representação fracionária alcançado
+	            }
+
 	            parteFracionaria *= 2;
 	            int bit = (int) parteFracionaria;
 	            binario.append(bit);
@@ -31,6 +36,8 @@ public class App2 {
 	        }
 
 	        System.out.println("Número decimal " + numeroDecimal + " em binário: " + binario);
+
+	        scanner.close();
 	    }
 
 }
